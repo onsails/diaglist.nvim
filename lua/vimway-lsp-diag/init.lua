@@ -1,17 +1,17 @@
 local M = {}
 
-local q = require('lsp-vimway-diag.quickfix')
-local l = require('lsp-vimway-diag.loclist')
+local q = require('vimway-lsp-diag.quickfix')
+local l = require('vimway-lsp-diag.loclist')
 
 function M.init()
   vim.api.nvim_command [[aug lsp_diagnostics]]
   vim.api.nvim_command [[au!]]
-  vim.api.nvim_command [[au User LspDiagnosticsChanged lua require("lsp-vimway-diag").lsp_diagnostics_hook()]]
+  vim.api.nvim_command [[au User LspDiagnosticsChanged lua require("vimway-lsp-diag").lsp_diagnostics_hook()]]
   vim.api.nvim_command [[aug END]]
 
   vim.api.nvim_command [[aug qf_hook]]
   vim.api.nvim_command [[au!]]
-  vim.api.nvim_command [[au! QuickFixCmdPre * lua require("lsp-vimway-diag").quick_fix_hook()]]
+  vim.api.nvim_command [[au! QuickFixCmdPre * lua require("vimway-lsp-diag").quick_fix_hook()]]
   vim.api.nvim_command [[aug END]]
 end
 
