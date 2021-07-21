@@ -1,10 +1,12 @@
--- https://github.com/scalameta/nvim-metals/blob/69a5cf9380defde5be675bd5450e087d59314855/lua/metals/diagnostic.lua
 local api = vim.api
 local lsp = require("vim.lsp")
 
-local M = {}
+local Q = {}
 
--- Collects all LSP buffer diagnostic lists and flattens them into a quick-fix item list
+-- original function is copied from nvim-metals
+-- https://github.com/scalameta/nvim-metals/blob/69a5cf9380defde5be675bd5450e087d59314855/lua/metals/diagnostic.lua
+--
+-- added current buf problems prioritization
 local function get_all_lsp_diagnostics_as_qfitems()
   local qfitems = {}
   -- Temporary array for warnings, so they are appended after errors
@@ -62,7 +64,7 @@ local function get_all_lsp_diagnostics_as_qfitems()
   return pqfitems
 end
 
-M.foreign_qf = true
+Q.foreign_qf = true
 
 local function update_all_diagnostics(opts)
   local open_qflist = opts ~= nil and opts['open_qflist']
@@ -82,34 +84,22 @@ end
 
 --  Fills the quick-fix with all the current LSP workspace diagnostics and
 --  opens it.
-M.open_all_diagnostics = function()
-  M.foreign_qf = false
+Q.open_all_diagnostics = function()
+  Q.foreign_qf = false
   update_all_diagnostics({ open_qflist = true})
 end
-
-M.lsp_diagnostics_hook = function()
-  if not M.foreign_qf then
+Q.lsp_diagnostics_hook = function()
+  if not Q.foreign_qf then
     update_all_diagnostics()
   end
 end
 
-
-M.quick_fix_hook = function()
-  M.foreign_qf = true
+Q.quick_fix_hook = function()
+  Q.foreign_qf = true
 end
 
 
-function M.init()
-    -- " autocmd! User LspDiagnosticsChanged lua require('lsp-vimway-diag').lsp_diagnostics_hook()
-  vim.api.nvim_command [[aug lsp_diagnostics]]
-  vim.api.nvim_command [[au!]]
-  vim.api.nvim_command [[au User LspDiagnosticsChanged lua require("lsp-vimway-diag").lsp_diagnostics_hook()]]
-  vim.api.nvim_command [[aug END]]
-
-  vim.api.nvim_command [[aug qf_hook]]
-  vim.api.nvim_command [[au!]]
-  vim.api.nvim_command [[au! QuickFixCmdPre * lua require("lsp-vimway-diag").quick_fix_hook()]]
-  vim.api.nvim_command [[aug END]]
+function Q.init()
 end
 
-return M
+return Q
