@@ -16,7 +16,7 @@ function M.init()
 end
 
 function M.open_buffer_diagnostics()
-  l.update_diagnostics_loclist()
+  l.open_buffer_diagnostics()
 end
 
 function M.open_all_diagnostics()
