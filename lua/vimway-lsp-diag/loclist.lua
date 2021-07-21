@@ -7,8 +7,6 @@ function M.lsp_diagnostics_hook()
   local errors = vim.lsp.diagnostic.get_count(0, "Error")
   local warnings = vim.lsp.diagnostic.get_count(0, "Warning")
 
-  print('total errors' .. errors .. ' warnings ' .. warnings)
-
   if warnings + errors > 0 then
     vim.lsp.diagnostic.set_loclist({
       open_loclist = false,
