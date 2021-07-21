@@ -73,7 +73,7 @@ local function update_all_diagnostics(opts)
   if #all_diagnostics > 0 then
     lsp.util.set_qflist(all_diagnostics)
     if open_qflist then
-      Foreign_qf = false
+      Q.foreign_qf = false
       api.nvim_command("copen")
     end
     -- api.nvim_command("wincmd p")
@@ -85,21 +85,12 @@ end
 --  Fills the quick-fix with all the current LSP workspace diagnostics and
 --  opens it.
 Q.open_all_diagnostics = function()
-  Q.foreign_qf = false
   update_all_diagnostics({ open_qflist = true})
 end
 Q.lsp_diagnostics_hook = function()
   if not Q.foreign_qf then
     update_all_diagnostics()
   end
-end
-
-Q.quick_fix_hook = function()
-  Q.foreign_qf = true
-end
-
-
-function Q.init()
 end
 
 return Q

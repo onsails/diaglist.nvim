@@ -28,4 +28,9 @@ function M.lsp_diagnostics_hook()
   q.lsp_diagnostics_hook()
 end
 
+function M.quick_fix_hook()
+  q.foreign_qf = true
+end
+
+
 return M
