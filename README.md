@@ -2,13 +2,13 @@
 
 ## Features
 
-[x] workspace diagnostics of all buffers in quickfix
-    [x] prioritize current buf diagnostics
-    [x] live diagnostics update
-    [x] no conflicts with other commands using quickfix
-[x] current buffer diagnostics in loclist
-    [x] live diagnostics update
-    [ ] no conflicts with other commands using loclist
+- [x] workspace diagnostics of all buffers in quickfix
+    - [x] prioritize current buf diagnostics
+    - [x] live diagnostics update
+    - [x] no conflicts with other commands using quickfix
+- [x] current buffer diagnostics in loclist
+    - [x] live diagnostics update
+    - [ ] no conflicts with other commands using loclist
 
 ## Setup
 
