@@ -1,7 +1,9 @@
 local api = vim.api
 local lsp = require("vim.lsp")
 
-local Q = {}
+local Q = {
+  debug = false,
+}
 
 -- original function is copied from nvim-metals
 -- https://github.com/scalameta/nvim-metals/blob/69a5cf9380defde5be675bd5450e087d59314855/lua/metals/diagnostic.lua
@@ -73,6 +75,7 @@ local function update_all_diagnostics(opts)
   if #all_diagnostics > 0 then
     lsp.util.set_qflist(all_diagnostics)
     if open_qflist then
+      print('setting foreign to false')
       Q.foreign_qf = false
       api.nvim_command("copen")
     end
@@ -87,9 +90,12 @@ end
 Q.open_all_diagnostics = function()
   update_all_diagnostics({ open_qflist = true})
 end
+
 Q.lsp_diagnostics_hook = function()
   if not Q.foreign_qf then
     update_all_diagnostics()
+  elseif Q.debug then
+    print("foreign quickfix, not populating")
   end
 end
 
