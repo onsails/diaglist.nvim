@@ -12,6 +12,7 @@ function M.init()
   vim.api.nvim_command [[aug qf_hook]]
   vim.api.nvim_command [[au!]]
   vim.api.nvim_command [[au! QuickFixCmdPre * lua require("vimway-lsp-diag").quick_fix_hook()]]
+  vim.api.nvim_command [[au! BufEnter * lua require("vimway-lsp-diag").quick_fix_hook()]]
   vim.api.nvim_command [[aug END]]
 end
 
