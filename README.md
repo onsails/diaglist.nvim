@@ -13,7 +13,7 @@
 ## Setup
 
 ```vimscript
-:lua require("vimway-lsp-diag").init()
+lua require("vimway-lsp-diag").init()
 ```
 
 Init sets diag update on LspDiagnosticsChanged for live diagnostics update
