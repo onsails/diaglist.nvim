@@ -22,6 +22,7 @@ function M.init(opts)
   M.debounce_ms = opts ~= nil and opts['debounce_ms']
 
   q.debug = M.debug
+  l.debug = M.debug
 end
 
 function M.open_buffer_diagnostics()

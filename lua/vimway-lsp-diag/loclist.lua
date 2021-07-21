@@ -1,9 +1,13 @@
-local M = {}
+local M = {
+  debug = false,
+}
 
 function M.lsp_diagnostics_hook()
   -- FIXME: check foreign loclist
   local errors = vim.lsp.diagnostic.get_count(0, "Error")
   local warnings = vim.lsp.diagnostic.get_count(0, "Warning")
+
+  print('total errors' .. errors .. ' warnings ' .. warnings)
 
   if warnings + errors > 0 then
     vim.lsp.diagnostic.set_loclist({
@@ -11,9 +15,10 @@ function M.lsp_diagnostics_hook()
       severity_limit = "Warning",
     })
   else
-    if vim.fn.win_gettype() == "" then
-      vim.cmd("silent! lclose")
-    end
+    -- print('no')
+    -- if vim.fn.win_gettype() == "" then
+    --   vim.cmd("silent! lclose")
+    -- end
   end
 end
 
