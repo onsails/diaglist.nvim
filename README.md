@@ -13,10 +13,12 @@
 ## Setup
 
 ```vimscript
-lua require("vimway-lsp-diag").init()
+lua require("vimway-lsp-diag").init({
+    debounce_ms = 50, -- default
+})
 ```
 
-Init sets diag update on `LspDiagnosticsChanged`, `WinEnter` for live diagnostics update
+Init sets diag update on `LspDiagnosticsChanged`, `WinEnter`, `BufEnter` for live diagnostics update
 and `QuickFixCmdPre` to avoid conflicts with other commands using quickfix.
 
 ## Mappings
