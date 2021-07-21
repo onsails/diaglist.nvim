@@ -16,8 +16,8 @@
 lua require("vimway-lsp-diag").init()
 ```
 
-Init sets diag update on LspDiagnosticsChanged for live diagnostics update
-and QuickFixCmdPre to avoid conflicts with other commands using quickfix.
+Init sets diag update on `LspDiagnosticsChanged` for live diagnostics update
+and `QuickFixCmdPre` to avoid conflicts with other commands using quickfix.
 
 ## Mappings
 
