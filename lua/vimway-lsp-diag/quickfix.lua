@@ -75,7 +75,9 @@ local function update_all_diagnostics(opts)
   if #all_diagnostics > 0 then
     lsp.util.set_qflist(all_diagnostics)
     if open_qflist then
-      print('setting foreign to false')
+      if Q.debug then
+        print("setting foreign to false")
+      end
       Q.foreign_qf = false
       api.nvim_command("copen")
     end
