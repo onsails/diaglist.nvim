@@ -74,7 +74,7 @@ local function get_all_lsp_diagnostics_as_qfitems(priority_filename)
 end
 
 
-M.foreign_qf = true
+M.foreign_qf = false
 
 local function populate_qflist(open_qflist)
   -- check if quickfix is focused
