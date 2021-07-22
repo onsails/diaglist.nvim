@@ -8,9 +8,11 @@
     - [x] prioritize current buf diagnostics
     - [x] live diagnostics update
     - [x] no conflicts with other commands using quickfix
+    - [x] debounce 
 - [x] current buffer diagnostics in loclist
     - [x] live diagnostics update
     - [ ] no conflicts with other commands using loclist
+    - [ ] debounce
 
 ## Setup
 
