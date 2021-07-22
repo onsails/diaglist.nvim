@@ -1,5 +1,7 @@
 # Vim-way lsp diagnostics for Neovim
 
+![demo](https://github.com/onsails/vimway-lsp-diag.nvim/raw/gif/demo.gif)
+
 ## Features
 
 - [x] workspace diagnostics of all buffers in quickfix
