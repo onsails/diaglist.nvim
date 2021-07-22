@@ -16,8 +16,8 @@
 
 ## Setup
 
-```vimscript
-lua require("vimway-lsp-diag").init({
+```lua
+require("vimway-lsp-diag").init({
     debounce_ms = 50, -- default
 })
 ```
