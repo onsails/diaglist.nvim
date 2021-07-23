@@ -9,6 +9,7 @@
     - [x] live diagnostics update
     - [x] no conflicts with other commands using quickfix
     - [x] debounce 
+    - [x] optionally show only current buffer's clients diagnostics
 - [x] current buffer diagnostics in loclist
     - [x] live diagnostics update
     - [ ] no conflicts with other commands using loclist
@@ -17,8 +18,17 @@
 ## Setup
 
 ```lua
-require("vimway-lsp-diag").init({
-    debounce_ms = 50, -- default
+lua require("vimway-lsp-diag").init({
+    -- optional settings
+    -- below are defaults
+
+    -- increase for noisy servers
+    debounce_ms = 50,
+
+    -- list in quickfix only diagnostics from clients
+    -- attached to a current buffer
+    -- if false, all buffers' clients diagnostics is collected
+    buf_clients_only = true, 
 })
 ```
 

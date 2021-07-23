@@ -2,15 +2,13 @@ local api = vim.api
 local lsp = require('vim.lsp')
 local debounce_trailing = require('vimway-lsp-diag.debounce').debounce_trailing
 
-local M = {
-  debug = false,
-  debounce_ms = 50,
-}
+local M = {}
 
 -- original function is copied from nvim-metals
 -- https://github.com/scalameta/nvim-metals/blob/69a5cf9380defde5be675bd5450e087d59314855/lua/metals/diagnostic.lua
 --
 -- added current buf problems prioritization
+-- added filter for current buf clients
 local function get_all_lsp_diagnostics_as_qfitems(priority_filename)
   if M.debug then
     print('priority ' .. priority_filename)
@@ -20,7 +18,26 @@ local function get_all_lsp_diagnostics_as_qfitems(priority_filename)
   -- Temporary array for warnings, so they are appended after errors
   local warnings = {}
 
-  local all_diags = lsp.diagnostic.get_all()
+  local all_diags = {}
+
+  if M.buf_clients_only then
+    for _, client in pairs(vim.lsp.buf_get_clients()) do
+      local client_diags = vim.lsp.diagnostic.get_all(client.id)
+
+      for bufnr, diags in pairs(client_diags) do
+        if all_diags[bufnr] == nil then
+          all_diags[bufnr] = diags
+        else
+          for diag in diags do
+            all_diags[bufnr][#all_diags[bufnr]+1] = diag
+          end
+        end
+      end
+
+    end
+  else
+    all_diags = vim.lsp.diagnostic.get_all()
+  end
 
   -- priority items for current buffer file
   local pqfitems = {}
@@ -108,21 +125,16 @@ local function populate_qflist(open_qflist)
   end
 end
 
-local debounced_populate_qflist = debounce_trailing(M.debounce_ms, populate_qflist)
-
 local function update_all_diagnostics(opts)
   local open_qflist = opts ~= nil and opts['open_qflist']
 
   if open_qflist then
     populate_qflist(open_qflist)
   else
-    -- populate_qflist(open_qflist)
-    debounced_populate_qflist(open_qflist)
+    M.debounced_populate_qflist(open_qflist)
   end
 end
 
---  Fills the quick-fix with all the current LSP workspace diagnostics and
---  opens it.
 M.open_all_diagnostics = function()
   update_all_diagnostics({ open_qflist = true})
 end
@@ -133,6 +145,10 @@ M.lsp_diagnostics_hook = function()
   elseif M.debug then
     print('foreign quickfix, not populating')
   end
+end
+
+function M.init()
+  M.debounced_populate_qflist = debounce_trailing(M.debounce_ms, populate_qflist)
 end
 
 return M
