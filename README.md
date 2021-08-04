@@ -1,4 +1,4 @@
-# Vim-way lsp diagnostics for Neovim
+# Live-updating Neovim LSP diagnostics in quickfix and loclist
 
 ![demo](https://github.com/onsails/vimway-lsp-diag.nvim/raw/gif/demo.gif)
 
