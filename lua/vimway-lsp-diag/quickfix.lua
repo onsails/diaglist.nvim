@@ -116,13 +116,13 @@ local function populate_qflist(open_qflist)
       if M.debug then
         print('setting foreign to false')
       end
+      if #all_diagnostics == 0 and not M.foreign_qf then
+        api.nvim_command('cclose')
+      else
+        api.nvim_command('copen')
+      end
       M.foreign_qf = false
-      api.nvim_command('copen')
     end
-  end
-    -- api.nvim_command('wincmd p')
-  if #all_diagnostics == 0 and not M.foreign_qf then
-    api.nvim_command('cclose')
   end
 end
 

@@ -14,12 +14,12 @@ function M.lsp_diagnostics_hook()
     vim.lsp.diagnostic.set_loclist({
       open_loclist = false,
       severity_limit = 'Warning',
-  })
-  end
+    })
+  else
     -- print('no')
     -- if vim.fn.win_gettype() == '' then
     --   vim.cmd('silent! lclose')
-    -- end
+  end
 end
 
 function M.open_buffer_diagnostics()
