@@ -110,7 +110,7 @@ local function populate_qflist(open_qflist)
   local priority_filename = vim.fn.expand('%:p')
 
   local all_diagnostics = get_all_lsp_diagnostics_as_qfitems(priority_filename)
-  if #all_diagnostics > 0 then
+  if lsp.buf.server_ready() then
     lsp.util.set_qflist(all_diagnostics)
     if open_qflist then
       if M.debug then
@@ -119,8 +119,9 @@ local function populate_qflist(open_qflist)
       M.foreign_qf = false
       api.nvim_command('copen')
     end
+  end
     -- api.nvim_command('wincmd p')
-  elseif not M.foreign_qf then
+  if #all_diagnostics == 0 and not M.foreign_qf then
     api.nvim_command('cclose')
   end
 end
