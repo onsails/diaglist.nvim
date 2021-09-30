@@ -36,7 +36,9 @@ function M.init(opts)
   end
 
   q.debounce_ms = M.debounce_ms
-  print(q.debounce_ms)
+  if M.debug then
+    print(q.debounce_ms)
+  end
 
   if opts['buf_clients_only'] ~= nil then
     M.buf_clients_only = opts['buf_clients_only']
