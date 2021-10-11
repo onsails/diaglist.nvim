@@ -1,6 +1,6 @@
 # Live-updating Neovim LSP diagnostics in quickfix and loclist
 
-![demo](https://github.com/onsails/vimway-lsp-diag.nvim/raw/gif/demo.gif)
+![demo](https://github.com/onsails/diaglist.nvim/raw/gif/demo.gif)
 
 ## Features
 
@@ -18,7 +18,7 @@
 ## Setup
 
 ```lua
-lua require("vimway-lsp-diag").init({
+lua require("diaglist").init({
     -- optional settings
     -- below are defaults
 
@@ -40,6 +40,6 @@ and `QuickFixCmdPre` to avoid conflicts with other commands using quickfix.
 There are no default mappings. Here is an example:
 
 ```vimscript
-nmap <space>dw <cmd>lua require('vimway-lsp-diag').open_all_diagnostics()<cr>
-nmap <space>d0 <cmd>lua require('vimway-lsp-diag').open_buffer_diagnostics()<cr>
+nmap <space>dw <cmd>lua require('diaglist').open_all_diagnostics()<cr>
+nmap <space>d0 <cmd>lua require('diaglist').open_buffer_diagnostics()<cr>
 ```
