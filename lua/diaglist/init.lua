@@ -4,20 +4,20 @@ local M = {
   buf_clients_only = true,
 }
 
-local q = require('vimway-lsp-diag.quickfix')
-local l = require('vimway-lsp-diag.loclist')
+local q = require('diaglist.quickfix')
+local l = require('diaglist.loclist')
 
 function M.init(opts)
   vim.api.nvim_command [[aug lsp_diagnostics]]
   vim.api.nvim_command [[au!]]
-  vim.api.nvim_command [[au User LspDiagnosticsChanged lua require("vimway-lsp-diag").lsp_diagnostics_hook(true)]]
-  vim.api.nvim_command [[au WinEnter * lua require("vimway-lsp-diag").lsp_diagnostics_hook(false)]]
-  vim.api.nvim_command [[au BufEnter * lua require("vimway-lsp-diag").lsp_diagnostics_hook(false)]]
+  vim.api.nvim_command [[au User LspDiagnosticsChanged lua require("diaglist").lsp_diagnostics_hook(true)]]
+  vim.api.nvim_command [[au WinEnter * lua require("diaglist").lsp_diagnostics_hook(false)]]
+  vim.api.nvim_command [[au BufEnter * lua require("diaglist").lsp_diagnostics_hook(false)]]
   vim.api.nvim_command [[aug END]]
 
   vim.api.nvim_command [[aug qf_hook]]
   vim.api.nvim_command [[au!]]
-  vim.api.nvim_command [[au! QuickFixCmdPre * lua require("vimway-lsp-diag").quick_fix_hook()]]
+  vim.api.nvim_command [[au! QuickFixCmdPre * lua require("diaglist").quick_fix_hook()]]
   vim.api.nvim_command [[aug END]]
 
   if opts == nil then

@@ -1,6 +1,6 @@
 local api = vim.api
 local lsp = require('vim.lsp')
-local debounce_trailing = require('vimway-lsp-diag.debounce').debounce_trailing
+local debounce_trailing = require('diaglist.debounce').debounce_trailing
 
 local M = {}
 
