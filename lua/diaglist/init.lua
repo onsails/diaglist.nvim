@@ -8,11 +8,11 @@ local q = require('diaglist.quickfix')
 local l = require('diaglist.loclist')
 
 function M.init(opts)
-  vim.api.nvim_command [[aug lsp_diagnostics]]
+  vim.api.nvim_command [[aug diagnostics]]
   vim.api.nvim_command [[au!]]
-  vim.api.nvim_command [[au User LspDiagnosticsChanged lua require("diaglist").lsp_diagnostics_hook(true)]]
-  vim.api.nvim_command [[au WinEnter * lua require("diaglist").lsp_diagnostics_hook(false)]]
-  vim.api.nvim_command [[au BufEnter * lua require("diaglist").lsp_diagnostics_hook(false)]]
+  vim.api.nvim_command [[au DiagnosticChanged * lua require("diaglist").diagnostics_hook(true)]]
+  vim.api.nvim_command [[au WinEnter * lua require("diaglist").diagnostics_hook(false)]]
+  vim.api.nvim_command [[au BufEnter * lua require("diaglist").diagnostics_hook(false)]]
   vim.api.nvim_command [[aug END]]
 
   vim.api.nvim_command [[aug qf_hook]]
@@ -57,7 +57,7 @@ function M.open_all_diagnostics()
   q.open_all_diagnostics()
 end
 
-function M.lsp_diagnostics_hook(diag_changed)
+function M.diagnostics_hook(diag_changed)
   if M.debug then
     if diag_changed then
       print("diagnostics changed")
@@ -65,8 +65,8 @@ function M.lsp_diagnostics_hook(diag_changed)
       print("winenter hook")
     end
   end
-  l.lsp_diagnostics_hook()
-  q.lsp_diagnostics_hook()
+  l.diagnostics_hook()
+  q.diagnostics_hook()
 end
 
 function M.quick_fix_hook()

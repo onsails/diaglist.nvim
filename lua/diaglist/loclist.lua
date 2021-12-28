@@ -2,7 +2,12 @@ local M = {
   debug = false,
 }
 
-function M.lsp_diagnostics_hook()
+function is_open()
+  return vim.fn.getloclist(0, {winid = 0}).winid ~= 0
+end
+
+function M.diagnostics_hook()
+
   if vim.api.nvim_buf_get_option(0, 'buftype') == 'quickfix' then
     if M.debug then
       print('loclist is focused, not updating')
@@ -11,8 +16,8 @@ function M.lsp_diagnostics_hook()
   end
   -- FIXME: check foreign loclist
   if vim.lsp.buf.server_ready() then
-    vim.lsp.diagnostic.set_loclist({
-      open_loclist = false,
+    vim.diagnostic.setloclist({
+      open = false,
       severity_limit = 'Warning',
     })
   else
@@ -23,8 +28,8 @@ function M.lsp_diagnostics_hook()
 end
 
 function M.open_buffer_diagnostics()
-  M.lsp_diagnostics_hook()
-  vim.api.nvim_command [[lopen]]
+  M.diagnostics_hook()
+  vim.api.nvim_command [[lw]]
 end
 
 return M

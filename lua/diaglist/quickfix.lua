@@ -9,7 +9,7 @@ local M = {}
 --
 -- added current buf problems prioritization
 -- added filter for current buf clients
-local function get_all_lsp_diagnostics_as_qfitems(priority_filename)
+local function get_all_diagnostics_as_qfitems(priority_filename)
   if M.debug then
     print('priority ' .. priority_filename)
   end
@@ -109,7 +109,7 @@ local function populate_qflist(open_qflist)
 
   local priority_filename = vim.fn.expand('%:p')
 
-  local all_diagnostics = get_all_lsp_diagnostics_as_qfitems(priority_filename)
+  local all_diagnostics = get_all_diagnostics_as_qfitems(priority_filename)
   if lsp.buf.server_ready() then
     lsp.util.set_qflist(all_diagnostics)
     if open_qflist then
@@ -140,7 +140,7 @@ M.open_all_diagnostics = function()
   update_all_diagnostics({ open_qflist = true})
 end
 
-M.lsp_diagnostics_hook = function()
+M.diagnostics_hook = function()
   if not M.foreign_qf then
     update_all_diagnostics()
   elseif M.debug then
