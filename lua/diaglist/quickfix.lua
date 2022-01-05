@@ -111,7 +111,7 @@ local function populate_qflist(open_qflist)
 
   local all_diagnostics = get_all_diagnostics_as_qfitems(priority_filename)
   if lsp.buf.server_ready() then
-    lsp.util.set_qflist(all_diagnostics)
+    setqflist(all_diagnostics)
     if open_qflist then
       if M.debug then
         print('setting foreign to false')
