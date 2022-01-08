@@ -1,6 +1,5 @@
 local M = {
   debug = false,
-  debounce_ms = 50,
   buf_clients_only = true,
 }
 
@@ -31,22 +30,11 @@ function M.init(opts)
   q.debug = M.debug
   l.debug = M.debug
 
-  if opts['debounce_ms'] ~= nil then
-    M.debounce_ms = opts['debounce_ms']
-  end
-
-  q.debounce_ms = M.debounce_ms
-  if M.debug then
-    print(q.debounce_ms)
-  end
-
   if opts['buf_clients_only'] ~= nil then
     M.buf_clients_only = opts['buf_clients_only']
   end
 
   q.buf_clients_only = M.buf_clients_only
-
-  q.init()
 end
 
 function M.open_buffer_diagnostics()

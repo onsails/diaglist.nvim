@@ -1,3 +1,5 @@
+local util = require('diaglist.util')
+
 local M = {
   debug = false,
 }
@@ -6,25 +8,22 @@ function is_open()
   return vim.fn.getloclist(0, {winid = 0}).winid ~= 0
 end
 
-function M.diagnostics_hook()
+local function get_as_qfitems()
+  local all_diags = vim.diagnostic.get(0)
+end
 
-  if vim.api.nvim_buf_get_option(0, 'buftype') == 'quickfix' then
-    if M.debug then
-      print('loclist is focused, not updating')
-    end
-    return
-  end
+
+function M.diagnostics_hook()
+  -- if vim.fn.win_gettype(0) == 'loclist' then
+  --   if M.debug then
+  --     print('loclist is focused, not updating')
+  --   end
+  --   return
+  -- end
   -- FIXME: check foreign loclist
-  if vim.lsp.buf.server_ready() then
-    vim.diagnostic.setloclist({
-      open = false,
-      severity_limit = 'Warning',
-    })
-  else
-    -- print('no')
-    -- if vim.fn.win_gettype() == '' then
-    --   vim.cmd('silent! lclose')
-  end
+  vim.diagnostic.setloclist({
+    open = false,
+  })
 end
 
 function M.open_buffer_diagnostics()
