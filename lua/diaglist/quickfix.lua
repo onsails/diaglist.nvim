@@ -4,8 +4,12 @@ local util = require('diaglist.util')
 
 local M = {}
 
-M.foreign_qf = false
 M.last_priority_uri = nil
+M.title = 'Workspace Diagnostics'
+
+local function is_qf_foreign()
+  return vim.fn.getqflist{ title = 0 }.title ~= M.title
+end
 
 local function populate_qflist(open_qflist)
   local priority_uri = vim.uri_from_bufnr(0)
@@ -21,6 +25,7 @@ local function populate_qflist(open_qflist)
   })
 
   vim.fn.setqflist(all_diagnostics, 'r')
+  vim.fn.setqflist({}, 'a', {title = 'Workspace Diagnostics'})
 end
 
 M.open_all_diagnostics = function()
@@ -29,7 +34,7 @@ M.open_all_diagnostics = function()
 end
 
 M.diagnostics_hook = function()
-  if not M.foreign_qf then
+  if not is_qf_foreign() then
     populate_qflist()
   elseif M.debug then
     print('foreign quickfix, not populating')

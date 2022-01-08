@@ -14,11 +14,6 @@ function M.init(opts)
   vim.api.nvim_command [[au BufEnter * lua require("diaglist").diagnostics_hook(false)]]
   vim.api.nvim_command [[aug END]]
 
-  vim.api.nvim_command [[aug qf_hook]]
-  vim.api.nvim_command [[au!]]
-  vim.api.nvim_command [[au! QuickFixCmdPre * lua require("diaglist").quick_fix_hook()]]
-  vim.api.nvim_command [[aug END]]
-
   if opts == nil then
     opts = {}
   end
@@ -56,13 +51,5 @@ function M.diagnostics_hook(diag_changed)
   l.diagnostics_hook()
   q.diagnostics_hook()
 end
-
-function M.quick_fix_hook()
-  if M.debug then
-    print("foreign quickfix populated, setting flag")
-  end
-  q.foreign_qf = true
-end
-
 
 return M
