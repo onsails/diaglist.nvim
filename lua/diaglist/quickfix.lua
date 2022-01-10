@@ -13,6 +13,12 @@ end
 
 local function populate_qflist(open_qflist)
   local priority_uri = vim.uri_from_bufnr(0)
+
+  -- entering same buffer as we were before focusing quickfix
+  if priority_uri == M.last_priority_uri then
+    return
+  end
+
   if string.sub(priority_uri,0,7) == 'file://' and string.len(priority_uri) > 7 then
     M.last_priority_uri = priority_uri
   else
@@ -25,7 +31,7 @@ local function populate_qflist(open_qflist)
   })
 
   vim.fn.setqflist(all_diagnostics, 'r')
-  vim.fn.setqflist({}, 'a', {title = 'Workspace Diagnostics'})
+  vim.diagnostic.setqflist({open=false, title = M.title})
 end
 
 M.open_all_diagnostics = function()
