@@ -9,9 +9,11 @@
     - [x] live diagnostics update
     - [x] no conflicts with other commands using quickfix
     - [x] optionally show only current buffer's clients diagnostics
+    - [x] debounce
 - [x] current buffer diagnostics in loclist
     - [x] live diagnostics update
     - [ ] no conflicts with other commands using loclist
+    - [ ] debounce
 
 ## Setup
 
@@ -20,6 +22,9 @@ lua require("diaglist").init({
     -- optional settings
     -- below are defaults
     debug = false, 
+
+    -- increase for noisy servers
+    debounce_ms = 150,
 })
 ```
 
