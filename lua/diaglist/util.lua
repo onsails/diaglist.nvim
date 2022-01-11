@@ -30,14 +30,14 @@ M.get_qflist = function(opts)
     end
 
     if atypen == btypen then
-      auri = vim.uri_from_bufnr(a.bufnr)
-      buri = vim.uri_from_bufnr(b.bufnr)
+      local aok, auri = pcall(vim.uri_from_bufnr(a.bufnr))
+      local bok, buri = pcall(vim.uri_from_bufnr(b.bufnr))
 
-      if auri == buri then
+      if aok and bok and auri == buri then
         return a.lnum < b.lnum
       end
 
-      if opts.priority_uri then
+      if aok and opts.priority_uri then
         return auri == opts.priority_uri
       end
     end
