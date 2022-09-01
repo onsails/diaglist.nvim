@@ -13,7 +13,7 @@ local function is_qf_foreign()
   return vim.fn.getqflist{ title = 0 }.title ~= M.title
 end
 
-local function populate_qflist()
+M.populate_qflist = function()
   local priority_uri = vim.uri_from_bufnr(0)
 
   -- entering same buffer as we were before focusing quickfix
@@ -38,7 +38,7 @@ local function populate_qflist()
 end
 
 M.open_all_diagnostics = function()
-  populate_qflist()
+  M.populate_qflist()
   api.nvim_command('copen')
 end
 
@@ -53,7 +53,7 @@ M.diagnostics_hook = function()
 end
 
 function M.init()
-  M.debounced_populate_qflist = debounce_trailing(M.debounce_ms, populate_qflist)
+  M.debounced_populate_qflist = debounce_trailing(M.debounce_ms, M.populate_qflist)
 end
 
 return M
