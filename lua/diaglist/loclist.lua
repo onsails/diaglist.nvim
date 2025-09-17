@@ -4,8 +4,8 @@ local M = {
   debug = false,
 }
 
-function is_open()
-  return vim.fn.getloclist(0, {winid = 0}).winid ~= 0
+local function is_open()
+  return vim.fn.getloclist(0, { winid = 0 }).winid ~= 0
 end
 
 local function get_as_qfitems()
@@ -28,7 +28,7 @@ end
 
 function M.open_buffer_diagnostics()
   M.diagnostics_hook()
-  vim.api.nvim_command [[lw]]
+  vim.cmd.lw()
 end
 
 return M

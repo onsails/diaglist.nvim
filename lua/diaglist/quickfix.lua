@@ -10,7 +10,7 @@ M.title = 'Workspace Diagnostics'
 M.change_since_render = false
 
 local function is_qf_foreign()
-  return vim.fn.getqflist{ title = 0 }.title ~= M.title
+  return vim.fn.getqflist({ title = 0 }).title ~= M.title
 end
 
 M.populate_qflist = function()
@@ -21,7 +21,7 @@ M.populate_qflist = function()
     return
   end
 
-  if string.sub(priority_uri,0,7) == 'file://' and string.len(priority_uri) > 7 then
+  if string.sub(priority_uri, 0, 7) == 'file://' and string.len(priority_uri) > 7 then
     M.last_priority_uri = priority_uri
   else
     priority_uri = M.last_priority_uri
@@ -33,13 +33,13 @@ M.populate_qflist = function()
   })
 
   vim.fn.setqflist(all_diagnostics, 'r')
-  vim.diagnostic.setqflist({open=false, title = M.title})
+  vim.diagnostic.setqflist({ open = false, title = M.title })
   M.change_since_render = false
 end
 
 M.open_all_diagnostics = function()
   M.populate_qflist()
-  api.nvim_command('copen')
+  vim.cmd.copen()
 end
 
 M.diagnostics_hook = function()

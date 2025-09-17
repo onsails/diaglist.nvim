@@ -8,12 +8,28 @@ local q = require('diaglist.quickfix')
 local l = require('diaglist.loclist')
 
 function M.init(opts)
-  vim.api.nvim_command [[aug diagnostics]]
-  vim.api.nvim_command [[au!]]
-  vim.api.nvim_command [[au DiagnosticChanged * lua require("diaglist").diagnostics_hook(true)]]
-  vim.api.nvim_command [[au WinEnter * lua require("diaglist").diagnostics_hook(false)]]
-  vim.api.nvim_command [[au BufEnter * lua require("diaglist").diagnostics_hook(false)]]
-  vim.api.nvim_command [[aug END]]
+  local aug_id = vim.api.nvim_create_augroup('diagnostics', {})
+  vim.api.nvim_create_autocmd('DiagnosticChanged', {
+    group = aug_id,
+    pattern = '*',
+    callback = function()
+      require('diaglist').diagnostics_hook(true)
+    end,
+  })
+  vim.api.nvim_create_autocmd('WinEnter', {
+    group = aug_id,
+    pattern = '*',
+    callback = function()
+      require('diaglist').diagnostics_hook(false)
+    end,
+  })
+  vim.api.nvim_create_autocmd('BufEnter', {
+    group = aug_id,
+    pattern = '*',
+    callback = function()
+      require('diaglist').diagnostics_hook(false)
+    end,
+  })
 
   if opts == nil then
     opts = {}

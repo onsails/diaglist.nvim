@@ -21,7 +21,7 @@ M.get_qflist = function(opts)
   local all_diags = vim.diagnostic.get(opts.bufnr)
   local qflist = vim.diagnostic.toqflist(all_diags)
 
-  table.sort(qflist, function(a,b)
+  table.sort(qflist, function(a, b)
     local atypen = M.type_to_num(a.type)
     local btypen = M.type_to_num(b.type)
 
@@ -30,8 +30,8 @@ M.get_qflist = function(opts)
     end
 
     if atypen == btypen then
-      local aok, auri = pcall(vim.uri_from_bufnr(a.bufnr))
-      local bok, buri = pcall(vim.uri_from_bufnr(b.bufnr))
+      local aok, auri = pcall(function() return vim.uri_from_bufnr(a.bufnr) end)
+      local bok, buri = pcall(function() return vim.uri_from_bufnr(b.bufnr) end)
 
       if aok and bok and auri == buri then
         return a.lnum < b.lnum
